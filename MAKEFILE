@@ -1,0 +1,36 @@
+
+
+NAME = libft_malloc_$(HOSTTYPE).so
+LINK = libft_malloc.so
+
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -fPIC
+LDFLAGS = -shared
+
+SRCS = malloc.c free.c realloc.c
+OBJS = $(SRCS:.c=.o)
+
+ifeq ($(HOSTTYPE),)
+HOSTTYPE := $(shell uname -m)_$(shell uname -s)
+endif
+
+all: $(NAME) $(LINK)
+
+$(NAME): $(OBJS)
+	$(CC) $(LDFLAGS) -o $@ $(OBJS)
+
+$(LINK): $(NAME)
+	ln -sf $(NAME) $(LINK)
+
+%.o: %.c malloc.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME) $(LINK)
+
+re: fclean all
+
+.PHONY: all clean fclean re
