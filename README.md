@@ -43,9 +43,6 @@ size must be multiple of 8
 ...
 ```
 
-exp:
-```
-
 CPUs and Address Alignment
 That final line size = (size + sizeof(void*) — 1) & ~(sizeof(void*) — 1) is a common trick to align size up to the next multiple of sizeof(void*). We do this because some CPU architectures either require or strongly prefer that certain data types are aligned to specific memory boundaries. There’s a physical hardware reason for why some CPUs can’t access misaligned data. RAM is fundamentally a giant array of bytes, where each byte has a unique address. However, CPUs don’t fetch data one byte at a time. They read and write memory in fixed-size chunks called words which are typically 4 bytes on 32-bit systems or 8 bytes on 64-bit systems.
 
